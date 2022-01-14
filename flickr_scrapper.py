@@ -59,19 +59,19 @@ print(f"Total {len(img_anchors)} Images Scrapped.")
 with open(f"data/{seed_query}.pkl", "wb") as fp:
 	pickle.dump(img_anchors, fp)
 # To Download
-# def download_image_flickr(url):
-# 	directory = ""
-# 	page = requests.get(url)
-# 	contents = page.content
-# 	soup = BeautifulSoup(contents, 'html.parser')
-# 	image = soup.find_all("img", {"class": "main-photo"})[0]
-# 	url_of_image = "https:"+image.get("src")
-# 	name = url_of_image.split("/")[-1]
-# 	response = requests.get(url)
-# 	with open(f"{directory}/{name}", 'wb') as handle:
-# 		handle.write(response.content)
-# 	print(f"Saved: {name}")
+def download_image_flickr(url):
+	directory = ""
+	page = requests.get(url)
+	contents = page.content
+	soup = BeautifulSoup(contents, 'html.parser')
+	image = soup.find_all("img", {"class": "main-photo"})[0]
+	url_of_image = "https:"+image.get("src")
+	name = url_of_image.split("/")[-1]
+	response = requests.get(url)
+	with open(f"{directory}/{name}", 'wb') as handle:
+		handle.write(response.content)
+	print(f"Saved: {name}")
 
-# with ThreadPoolExecutor(max_workers=8) as executor:
-# 	executor.map(download_image_flickr, img_anchors)
+with ThreadPoolExecutor(max_workers=8) as executor:
+	executor.map(download_image_flickr, img_anchors)
 driver.quit()
